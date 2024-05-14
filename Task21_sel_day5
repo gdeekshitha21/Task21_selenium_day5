@@ -1,0 +1,44 @@
+from selenium import webdriver
+import time
+
+
+# Initialize Chrome WebDriver
+driver = webdriver.Chrome()
+
+# Open the URL
+driver.get("https://www.saucedemo.com/")
+
+print("Cookies before login:")
+for cookie in driver.get_cookies():
+    print(cookie)
+
+# Find the username and password fields and login button
+username_input = driver.find_element_by_css_selector("#user-name")
+password_input = driver.find_element_by_css_selector("#password")
+login_button = driver.find_element_by_css_selector("input[type='submit']")
+
+# Input username and password
+username_input.send_keys("standard_user")
+password_input.send_keys("secret_sauce")
+
+# Click login button
+login_button.click()
+
+time.sleep(2)
+
+# Print cookies after login
+print("Cookies after login:")
+for cookie in driver.get_cookies():
+    print(cookie)
+
+# Logout
+logout_button = driver.find_element_by_css_selector("#logout_sidebar_link")
+logout_button.click()
+
+# Print cookies after logout
+print("Cookies after logout:")
+for cookie in driver.get_cookies():
+    print(cookie)
+
+# Close the browser
+driver.quit()
